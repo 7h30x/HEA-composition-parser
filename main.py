@@ -1,5 +1,8 @@
 import sys
 from typing import List
+
+from classes.hea_alloy import HEA_Alloy
+
 from services.csv_service import CsvService
 from services.logger import logger
 
@@ -7,10 +10,11 @@ from services.logger import logger
 def parser( fpath : str, delimiter : str = ','):
     # get data from csv file
     data : List[ str ] = CsvService.get_data_from_csv(fpath, delimiter)
-    # write parsed output to csv
-    CsvService.write_data_to_csv(fpath, data)
 
-    
+    # write parsed output to csv
+    CsvService.write_data_to_csv("Parser.csv", map(lambda row: HEA_Alloy(row), data))
+
+
 if __name__ == '__main__':
     try:
         fpath = sys.argv[1]

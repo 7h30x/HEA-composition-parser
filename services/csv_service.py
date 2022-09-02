@@ -1,6 +1,7 @@
 import os
 from typing import List
 import _csv
+from classes.hea_alloy import HEA_Alloy
 from services.logger import logger
 
 class CsvService:
@@ -30,18 +31,21 @@ class CsvService:
     
     #TODO : create this function
     @staticmethod
-    def write_data_to_csv(fpath: str,  data : List [ str ]):
+    def write_data_to_csv(fpath: str,  data : List [HEA_Alloy], delimiter=',') -> None:
         '''
         Writes alloy composition data to a given file.
 
         Parameters:
             fpath: relative / absolute path to the output file
-            data: 53-element vector with molar ratios of each element [0, 0.8, 0, 0, 0.2, ...]
+            data: list of element vectors with molar ratios of each element [0, 0.8, 0, 0, 0.2, ...]
 
         Returns:
             None
         '''
-        return None
+        
+        with open(fpath, 'w', newline='\n') as outfile:
+            writer = _csv.writer(outfile, delimiter = delimiter)
+            writer.writerows( map(lambda x: x.get_composition_vector() , data))
 
 
 
