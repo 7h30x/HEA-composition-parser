@@ -1,32 +1,44 @@
-from elements import elements_list
-from typing import List, double
+import re
 import logging as logger
-
-class CsvReader:
+import HEA_Alloy
+class DataCleaner:
    
-    #TODO : create this function
     @staticmethod
-    def normalize_molar_ratios ( ratios : List[double]):
+    def normalize_molar_ratios  ( ratios : "list[float]") -> "list[float]" :
         """ 
-        Normalizes molar ratios to sum up to 1
+        Normalizes a list of molar ratio values to sum up to 1.
 
         Parameters: 
-            List [double]: A list of molar ratios.
+            List [float]: A list of molar ratios.
                 e.g. [1, 0.5, 0.5, 1, 1]
 
         Returns: 
-            List [double]: A normalized version of the list 
+            List [float]: A normalized version of the list.
                 e.g. [0.25 , 0.125, 0.125, 0.25, 0.25]
         """
+        total_moles = sum(ratios)
+        return map( lambda ratio : ratio / total_moles , ratios )
+        
+    @staticmethod
+    def composition_to_molar_elements (row: str) -> "dict[str:float]" :
+        row = DataCleaner.clean_row(row)
+        ret = {}
+        pattern="([A-Z][a-z]?[0-9.]*)"
+        # split into elements and their molar 
+        # e.g. [Ag, Au2, Cr0.5]
+        raw_elements_list = re.findall(pattern, row)
+        for e in raw_elements_list:
+            # split string into element and molar ratio tokens 
+            element, mole = e.findall('\\d+\.?\\d*|\\D+', maxsplit=1)
+            # check tokens in element whitelist
+            if element not in HEA_Alloy.elements:
+                raise Exception(f"The element {element} in the composition {e} was not found in whitelist.")
+            ret[element] =  float(mole[0]) if mole else 1
+        return ret
 
-    #TODO : create this function
     @staticmethod
     def clean_row (row : str) :
-        # remove +/- signs
-
-        # split string into element and molar ratio tokens 
-
-        # check tokens in element whitelist
-        
-        # 
-        return ""
+        remove_chars = ['+','-',' ']
+        row = row.strip()
+        # remove +/- signs and spaces
+        return ''.join([row[i] for i in range(len(row)) if i not in remove_chars])     
