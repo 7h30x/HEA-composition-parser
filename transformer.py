@@ -1,7 +1,7 @@
 import re
 from services.logger import logger
 
-class DataCleaner:
+class Transformer:
     # list of all possible elements in a HEA composition formula.
     elements = ['Ag', 'Al', 'Au', 'B', 'Be', 'Bi', 'C', 'Cd', 'Ce', 'Co', 'Cr', \
     'Cu', 'Dy', 'Er', 'Fe', 'Gd', 'Ge', 'Hf', 'Ho', 'In', 'Ir', 'La', 'Li', \
@@ -22,7 +22,7 @@ class DataCleaner:
             List [float]: A normalized version of the list.
                 e.g. [0.25 , 0.125, 0.125, 0.25, 0.25]
         """
-        logger.debug(f'ratios is {ratios}')
+        logger.debug(f'Molar ratios is {ratios}')
         total_moles = sum(ratios)
         return list(map( lambda ratio : ratio / total_moles , ratios ))
         
@@ -43,7 +43,7 @@ class DataCleaner:
                 Zn : 0.5
             }
         """
-        row = DataCleaner._clean_row(row)
+        row = Transformer._clean_row(row)
         ret = {}
         pattern="([A-Z][a-z]?[0-9.]*)"
         # split into elements and their molar 
@@ -52,12 +52,13 @@ class DataCleaner:
         for e in raw_elements_list:
             # split string into element and molar ratio tokens 
             tokens = re.findall('\\d+\.?\\d*|\\D+', string=e)
+            logger.debug(f'Row tokens are {tokens}')
             element = tokens[0]
             if len(tokens) == 2:
                 mole = tokens[1][0] 
             else: mole = 1
             # check tokens in element whitelist
-            if element not in DataCleaner.elements:
+            if element not in Transformer.elements:
                 raise Exception(f"The element {element} in the composition {e} was not found in whitelist.")
             ret[element] =  float(mole) 
         return ret
@@ -69,7 +70,7 @@ class DataCleaner:
         Removes all whitespaces and +/-/_ signs
 
         """
-        remove_chars = ['+','-',' ','_']
+        remove_chars = ['+','-',' ','_','?']
         row = row.strip()
         # remove +/- signs and spaces
         return ''.join([row[i] for i in range(len(row)) if i not in remove_chars])     

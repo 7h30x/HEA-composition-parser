@@ -2,7 +2,7 @@ import os
 from typing import List
 import _csv
 from classes.hea_alloy import HEA_Alloy
-from data_cleaner import DataCleaner
+from transformer import Transformer
 from services.logger import logger
 
 class CsvService:
@@ -46,8 +46,9 @@ class CsvService:
         
         with open(fpath, 'w', newline='\n') as outfile:
             writer = _csv.writer(outfile, delimiter = delimiter)
-            writer.writerow(DataCleaner.elements)
+            writer.writerow(Transformer.elements)
             writer.writerows( map(lambda x: x.get_composition_vector() , data))
+        logger.info(f"Wrote alloy compositions vector to : {fpath}")
 
 
 
