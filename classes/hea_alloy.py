@@ -1,9 +1,9 @@
 from data_cleaner import DataCleaner
+from services.logger import logger
 
 
 class HEA_Alloy:
     
-   
     def __init__ (self, row : str) -> None :
         
         self._composition: list[ float ] = [0] * len(DataCleaner.elements)
@@ -12,7 +12,7 @@ class HEA_Alloy:
 
         # fill in composition with molars from row data
         elements = list(self._elements_dict.keys())
-        print(f'elements is {elements}')
+        logger.debug(f'elements is {elements}')
         molars   = DataCleaner.normalize_molar_ratios(list(self._elements_dict.values()))
         for j, el in enumerate(elements):
             el_idx = DataCleaner.elements.index(el)

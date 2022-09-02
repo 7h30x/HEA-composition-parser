@@ -1,5 +1,6 @@
 import re
-import logging as logger
+from services.logger import logger
+
 class DataCleaner:
     # list of all possible elements in a HEA composition formula.
     elements = ['Ag', 'Al', 'Au', 'B', 'Be', 'Bi', 'C', 'Cd', 'Ce', 'Co', 'Cr', \
@@ -7,6 +8,7 @@ class DataCleaner:
     'Lu', 'Mg', 'Mn', 'Mo', 'N', 'Nb', 'Nd', 'Ni', 'Os', 'Pb', 'Pd', \
     'Pr', 'Pt', 'Re', 'Rh', 'Ru', 'Sb', 'Sc', 'Si', 'Sm', 'Sn', 'Sr', \
     'Ta', 'Tb', 'Ti', 'Tm', 'V', 'W', 'Y', 'Yb', 'Zn', 'Zr', 'Ga','S']
+
     @staticmethod
     def normalize_molar_ratios  ( ratios : "list[float]") -> "list[float]" :
         """ 
@@ -20,7 +22,7 @@ class DataCleaner:
             List [float]: A normalized version of the list.
                 e.g. [0.25 , 0.125, 0.125, 0.25, 0.25]
         """
-        print(f'ratios is {ratios}')
+        logger.debug(f'ratios is {ratios}')
         total_moles = sum(ratios)
         return list(map( lambda ratio : ratio / total_moles , ratios ))
         
@@ -49,8 +51,6 @@ class DataCleaner:
         raw_elements_list = re.findall(pattern, string=row)
         for e in raw_elements_list:
             # split string into element and molar ratio tokens 
-            print(e)
-            
             tokens = re.findall('\\d+\.?\\d*|\\D+', string=e)
             element = tokens[0]
             if len(tokens) == 2:

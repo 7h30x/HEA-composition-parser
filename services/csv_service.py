@@ -2,6 +2,7 @@ import os
 from typing import List
 import _csv
 from classes.hea_alloy import HEA_Alloy
+from data_cleaner import DataCleaner
 from services.logger import logger
 
 class CsvService:
@@ -20,7 +21,7 @@ class CsvService:
 
         if not os.path.exists(fpath):
             raise OSError(filename=fpath)
-        # logger.info(f"Opening {fpath}")
+        logger.info(f"Opening {fpath}")
         # Using utf-8-sig to read a file will treat BOM as file info instead of a string.
         with open(fpath, newline='', encoding='utf-8-sig') as csvfile:
             reader = _csv.reader(csvfile, delimiter = delimiter, quotechar='"')
@@ -45,6 +46,7 @@ class CsvService:
         
         with open(fpath, 'w', newline='\n') as outfile:
             writer = _csv.writer(outfile, delimiter = delimiter)
+            writer.writerow(DataCleaner.elements)
             writer.writerows( map(lambda x: x.get_composition_vector() , data))
 
 
