@@ -14,7 +14,7 @@ def parser( fpath : str, delimiter : str = ','):
     # write parsed output to csv
     CsvService.write_data_to_csv("Parser.csv", map(lambda row: HEA_Alloy(row), data))
 
-
+# HELLO
 if __name__ == '__main__':
     try:
         fpath = sys.argv[1]
