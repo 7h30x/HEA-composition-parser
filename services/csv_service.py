@@ -2,7 +2,7 @@ import os
 from typing import List
 import _csv
 from classes.hea_alloy import HEA_Alloy
-from transformer import Transformer
+from classes.transformer import Transformer
 from services.logger import logger
 
 class CsvService:
@@ -27,7 +27,7 @@ class CsvService:
             reader = _csv.reader(csvfile, delimiter = delimiter, quotechar='"')
             data = [row[0] for row in reader if len(row) > 0]
         logger.info(f"Loaded {fpath} containing {len(data)} items")
-        logger.info(f"first 10 items: {data[0::20]}")
+        logger.info(f"first 10 items: {data[0::10]}")
         return data
     
     #TODO : create this function

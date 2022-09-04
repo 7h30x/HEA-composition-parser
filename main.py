@@ -2,7 +2,6 @@ import sys
 from typing import List
 
 from classes.hea_alloy import HEA_Alloy
-
 from services.csv_service import CsvService
 from services.logger import logger
 
@@ -22,6 +21,8 @@ if __name__ == '__main__':
         logger.info(f"entered parameters: \n fpath: {fpath}, \n delimiter: {delimiter}")
         parser(fpath, delimiter)
     except IndexError as e:
-        error_message : str = "must call script with arguments: <filepath> <csv-delimiter>"
+        error_message : str = "Must call main.py with parameters: [filepath] [csv-delimiter]"
         message  = {e: error_message}
         raise Exception(message)
+    except Exception as e: 
+        raise e
