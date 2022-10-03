@@ -7,9 +7,10 @@ class HEA_Alloy:
     
     def __init__ (self, row : str) -> None :
         
+        self._composition_str : str             = row[0]
+        self._row : str = row
         self._composition: list[ float ]        = [0] * len(Transformer.elements)
-        self._elements_molars : dict[str: float]  = Transformer.composition_to_molar_elements(row) 
-        self._composition_str : str             = row
+        self._elements_molars : dict[str: float]  = Transformer.composition_to_molar_elements(self._composition_str) 
 
         # fill in composition with molars from row data
         elements = list(self._elements_molars.keys())
@@ -30,5 +31,8 @@ class HEA_Alloy:
 
     def get_composition_vector (self) -> List[float]:
         return self._composition
+    def get_row (self) -> List[str]:
+        return self._row
+    
     
   

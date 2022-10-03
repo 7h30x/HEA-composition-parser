@@ -11,7 +11,8 @@ def test_normalize_molar_ratios ():
     assert len(r1) == len(nr1)
 
 
-compositions = ['Nb20Ni20Ti+20+Co_20-Zr20', 'Nb1.50Ni10Ti', '(FeCrNiCo)Al0.75Cu0.25 ']
+compositions = ['Nb20Ni20Ti+20+Co_20-Zr20', 'Nb1.50Ni10Ti', '(FeCrNiCo)Al0.75Cu0.25 ',
+'(FeCrNiCo)1Al0.75(CuCr)0.25 ']
 compositional_elements = [{ #1
     "Nb": 20.0, 
     "Ni":20,
@@ -31,7 +32,16 @@ compositional_elements = [{ #1
         "Co" : 1.0,
         "Al" : 0.75,
         "Cu" : 0.25
-    }
+    },
+    { #4
+        "Fe": 1.0,
+        "Cr": 1.0,
+        "Ni":1.0,
+        "Co" : 1.0,
+        "Al" : 0.75,
+        "Cu" : 0.25,
+        "Cr" : 0.25
+    },
 ]
 composition_test_zip = zip(compositions, compositional_elements)
 

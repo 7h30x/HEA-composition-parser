@@ -9,6 +9,7 @@ class Transformer:
     'Pr', 'Pt', 'Re', 'Rh', 'Ru', 'Sb', 'Sc', 'Si', 'Sm', 'Sn', 'Sr', \
     'Ta', 'Tb', 'Ti', 'Tm', 'V', 'W', 'Y', 'Yb', 'Zn', 'Zr', 'Ga','S']
 
+
     @staticmethod
     def normalize_molar_ratios  ( ratios : "list[float]") -> "list[float]" :
         """ 
@@ -47,11 +48,23 @@ class Transformer:
         logger.debug(f"Row string is {row}")
         ret = {}
         
-        parenthesis_pattern="(\([A-Z][a-z]?\) )"
-        
-        pattern="([A-Z][a-z]?[0-9.]*)"
+        # replace paranthesized elements with explicit formula 
+        parenthesis_pattern="(\(((?:[A-Z]{1}[a-z]{0,1})+)\)(\d*\.?\d+))"
+        praw = re.findall(parenthesis_pattern, string=row)
+        #print(praw)
+        for p in praw: #ex. ["(AlCo)2","(NbCr)0.3]"
+            elements_p=re.findall('[A-Z][a-z]?',p[0])
+            #print(elements_p)
+            n = 1 / len(elements_p)
+            if len(p)==3:
+                n :float = float(p[2]) / len(elements_p)
+           # print(f"n is {n}")
+            replacement_string = str(n).join(elements_p) + str(n)
+            row = row.replace(p[0],replacement_string, 1)
+            
         # split into elements and their molar 
         # e.g. [Ag, Au2, Cr0.5]
+        pattern="([A-Z][a-z]?[0-9.]*)"
         raw= re.findall(pattern, string=row)
         for r in raw:
             # split string into element and molar ratio tokens 
