@@ -2,7 +2,6 @@ import os
 from typing import  List
 import _csv
 from hea_alloy import HEA_Alloy
-from transformer import Transformer
 from services.logger import logger
 
 class CsvService:
@@ -25,6 +24,7 @@ class CsvService:
         # Using utf-8-sig to read a file will treat BOM as file info instead of a string.
         with open(fpath, newline='', encoding='utf-8-sig') as csvfile:
             reader = _csv.reader(csvfile, delimiter = delimiter, quotechar='"')
+            reader.__next__()
             data = [row for row in reader if len(row) > 0]
         logger.info(f"Loaded {fpath} containing {len(data)} items")
         logger.info(f"first 10 items: {data[0::10]}")
@@ -62,10 +62,9 @@ class CsvService:
         print(headers)
         with open(fpath, 'w', newline='\n') as outfile:
             writer = _csv.writer(outfile, delimiter = delimiter)
-            writer.writerow(Transformer.elements + headers)
+            writer.writerow( headers)
             writer.writerows(data)
         logger.info(f"Wrote alloy compositions vector to : {fpath}")
-
 
 
     

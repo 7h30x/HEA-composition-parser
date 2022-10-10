@@ -25,5 +25,12 @@ A parser to extract alloy mechanical properties information from a .csv file.
 
 Put the input file in the `/assets` directory and run the following in terminal on the project root directory:
 ``` bash
-python3 main.py '/assets/[filename].csv' ','
+python3 main.py '/assets/[filename].csv' <delimiter> <write-to-csv>
+
+e.g.
+python main.py "/mnt/c/Users/discovery_pc/OneDrive - Australian National University/ANU/Courses/current/COMP2560/HEA-composition-parser/assets/mech.csv" , true
 ```
+
+
+The parser will produce a `Parser.csv` file in the root directory.
+

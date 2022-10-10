@@ -1,5 +1,5 @@
 import logging 
 
 logger = logging.getLogger(" HEA-Composition-Parser ")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logging.basicConfig()

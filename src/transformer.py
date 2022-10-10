@@ -9,7 +9,6 @@ class Transformer:
     'Pr', 'Pt', 'Re', 'Rh', 'Ru', 'Sb', 'Sc', 'Si', 'Sm', 'Sn', 'Sr', \
     'Ta', 'Tb', 'Ti', 'Tm', 'V', 'W', 'Y', 'Yb', 'Zn', 'Zr', 'Ga','S']
 
-
     @staticmethod
     def normalize_molar_ratios  ( ratios : "list[float]") -> "list[float]" :
         """ 
@@ -48,7 +47,9 @@ class Transformer:
         logger.debug(f"Row string is {row}")
         ret = {}
         
-        # replace paranthesized elements with explicit formula 
+        # replace paranthesized element compositions with explicit formula 
+        # https://regexr.com/
+        #ex. (NbCr)0.3Al0.7 -> Nb0.15Cr0.15Al0.7 "
         parenthesis_pattern="(\(((?:[A-Z]{1}[a-z]{0,1})+)\)(\d*\.?\d+))"
         praw = re.findall(parenthesis_pattern, string=row)
         #print(praw)
