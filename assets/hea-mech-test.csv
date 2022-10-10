@@ -1,0 +1,11 @@
+﻿Alloy name (composition),Phase (if known),FCC,BCC,Im,HCP,sigma,Processing (if known),Processing (Binary),Reference,Hardness (HV),Yield strength (MPa),Tensile strength (MPa),Elongation (ductility) %,Compressive strength (MPa),Plasticity  (ductility) %
+Al0.6Si0.2CrFeCoNCu0.4,BCC,0,1,0,0,0,as cast,0,dx.doi.org/10.1016/j.matdes.2015.11.013,,,,,1600,8
+TaTiNb ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  295°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,1135,,,1765,20
+TaTiNbZr ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  295°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,1572,,,1728,6
+TaTiNbZrMo ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  295°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,1480,,,1625,6
+TaTiNbZrW ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  295°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,1871,,,1992,2
+TaTiNb ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  873°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,800,,,1130,14
+TaTiNbZr ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  873°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,1004,,,1178,16
+TaTiNbZrMo ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  873°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,1021,,,1509,14
+TaTiNbZrW ,BCC,0,1,0,0,0," initial, SPS 1373 K,Annealing at  873°C",1,https://doi.org/10.1016/j.jallcom.2021.162030 ,,899,,,1155,13
+ (CoCrFeNi)97(WMo)3,matrix+σ phase,0,0,0,0,1,As-cast,0,https://doi.org/10.1016/j.jallcom.2022.163774 ,,268,507,51.8,,
